@@ -302,7 +302,7 @@ async function loadProducts() {
 
   data.forEach(product => {
     const name = product.name || product.Name || "Product";
-    const image = product.image_url || product.Image_url || product.Image_ur1 || "";
+    const image = product.Image_url || product.image_url || product.image || "";
     const price = product.price || product.Price || "";
     const stock = product.stock || product.Stock || "";
 
