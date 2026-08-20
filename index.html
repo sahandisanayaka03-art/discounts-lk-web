@@ -267,6 +267,31 @@
     <!-- main javascript -->
     <script src="assets/js/custom.js"></script>
     <!-- animation from javascript -->
-    <script src="assets/js/aos.js"></script>
-  </body>
+    <script src="assets/js/aos.js"></script> 
+    <script>
+const SUPABASE_URL = "https://srepwcydaaxjvvwzfild.supabase.co";
+const SUPABASE_KEY = "sb_publishable_4M61ayat9cop3dBvQWxlFw_OqeAyRpH";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+async function loadProducts() {
+  const { data, error } = await db
+    .from("products")
+    .select("*")
+    .order("id", { ascending: false });
+
+  if (error) {
+    console.error("Supabase error:", error);
+    return;
+  }
+
+  console.log("Products:", data);
+}
+
+loadProducts();
+</script>
+  </body> 
 </html>
