@@ -274,8 +274,9 @@
     <!-- animation from javascript -->
     <script src="assets/js/aos.js"></script> 
     <script>
+<script>
 const SUPABASE_URL = "https://srepwcydaaxjvvwzfild.supabase.co";
-const SUPABASE_KEY = "sb_publishable_4M61ayat9cop3dBvQWxlFw_OqeAyRpH";
+const SUPABASE_KEY = "sb_publishable_4M61ayat9cop3dBvQW";
 
 const db = window.supabase.createClient(
   SUPABASE_URL,
@@ -293,7 +294,55 @@ async function loadProducts() {
     return;
   }
 
-  console.log("Products:", data);
+  const container = document.getElementById("products-container");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  data.forEach(product => {
+    const name = product.name || product.Name || "Product";
+    const image = product.image_url || product.Image_url || product.Image_ur1 || "";
+    const price = product.price || product.Price || "";
+    const stock = product.stock || product.Stock || "";
+
+    const card = document.createElement("div");
+
+    card.style.cssText = `
+      display:inline-block;
+      width:280px;
+      margin:15px;
+      padding:15px;
+      background:#fff;
+      border-radius:15px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.12);
+      vertical-align:top;
+      text-align:center;
+    `;
+
+    card.innerHTML = `
+      <img 
+        src="${image}" 
+        alt="${name}"
+        style="
+          width:100%;
+          height:280px;
+          object-fit:cover;
+          border-radius:12px;
+        "
+      >
+
+      <h3 style="margin:12px 0 8px;">
+        ${name}
+      </h3>
+
+      ${price ? `<p style="font-weight:bold;">Rs. ${price}</p>` : ""}
+
+      ${stock ? `<p>Stock: ${stock}</p>` : ""}
+    `;
+
+    container.appendChild(card);
+  });
 }
 
 loadProducts();
